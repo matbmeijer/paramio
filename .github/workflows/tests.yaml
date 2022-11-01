@@ -86,7 +86,7 @@ jobs:
 
       - name: Test packaged wheel on linux
         run: |
-          pip install dist/*cp310-manylinux*.whl
+          pip install dist/*.whl
           rm -rf paramio
           python -m pytest
       - name: Upload wheel artifact
