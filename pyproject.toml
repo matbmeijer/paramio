@@ -11,3 +11,16 @@ ensure_newline_before_comments = true
 
 [tool.black]
 line-length = 88
+target-version = ['py36', 'py37', 'py38']
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.idea
+  | \.pytest_cache
+  | _build
+  | build
+  | dist
+  | venv
+)/
+'''
