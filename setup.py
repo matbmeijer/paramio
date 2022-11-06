@@ -22,7 +22,7 @@ setup(
     author=attrs["author"],
     install_requires=[],
     author_email="matthias@brennotten.net",
-    description="Opinionated variable setter for project parameter files",
+    description="Define dynamic parameters only once",
     long_description=long_description,
     long_description_content_type="text/markdown",
     py_modules=["paramio"],
