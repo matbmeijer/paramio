@@ -43,3 +43,34 @@ def test_parameterize():
     }
 
     assert updated_config_file == test_config_file
+
+
+def test_missing_parameters():
+    project_parameters = Paramio(
+        env="dev",
+        bucket="enterprise_dwh_global",
+        run="fast",
+        group="extract",
+        task="read_origins",
+    )
+
+    config_file = {
+        "env": "{env}",
+        "s3_bucket": "{bucket}",
+        "iterations": 1,
+        "{variable_key}": 10,
+        "numpy": np.array([1]),
+        "tuple_test": ("{env}", "{not_env}", "{env}"),
+        "runs": ["{run}_{env}", "{run}_{env}", "{run}_{env}"],
+        "group": {"task": "{bucket}/{group}/{task}/{experiment}"},
+    }
+
+    assert project_parameters.missing_parameters(config_file) == [
+        "not_env",
+        "experiment",
+    ]
+
+
+def test_parameters():
+    project_parameters = Paramio(folder="inference", env="pro")
+    assert project_parameters.parameters == {"folder": "inference", "env": "pro"}
