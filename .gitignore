@@ -155,3 +155,7 @@ cython_debug/
 # Editors
 .vscode/
 .idea/
+
+# R
+.Rhistory
+.RData

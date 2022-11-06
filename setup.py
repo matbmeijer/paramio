@@ -39,7 +39,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
-        "Development Status :: 1 - Planning",
+        "Development Status :: 3 - Alpha",
         "Natural Language :: English",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
