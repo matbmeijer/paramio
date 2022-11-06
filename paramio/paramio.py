@@ -1,40 +1,23 @@
-from typing import Any, Dict, List
+from typing import Any
 
-from paramio.saveformatting import SaveFormatting
-
-
-def update_config(element: Any, **update_keys) -> Any:
-    """
-    It recursively traverses a dictionary, list, or string, and replaces any string values with the
-    string formatted using the `update_keys` dictionary
-
-    Args:
-        element (Any): Object to dynamically update it's elements recursively
-        update_keys: Key-Values to update, defining the value as the new value to be
-
-    Returns:
-        A dictionary with the keys being the keys of the original dictionary and the values being the
-    values of the original dictionary.
-    """
-    if isinstance(element, dict):
-        return _update_config_dict(element, **update_keys)
-
-    if isinstance(element, list):
-        return _update_config_list(element, **update_keys)
-
-    if isinstance(element, str):
-        return _update_config_str(element, **update_keys)
-
-    return element
+from paramio.update_parameters import update_parameters
 
 
-def _update_config_dict(element: Dict[str, Any], **update_keys):
-    return {key: update_config(value, **update_keys) for key, value in element.items()}
+class Paramio:
+    def __init__(self, **parameters) -> None:
+        """
+        Assigns the parameters to the class parameters attribute
+        """
+        self.parameters = parameters
 
+    def parameterize(self, obj: Any) -> Any:
+        """
+        It takes an object and updates its dynamic parameters recursively with the parameters assigned to Paramio
 
-def _update_config_list(element: List[Any], **update_keys):
-    return [update_config(el, **update_keys) for el in element]
+        Args:
+          obj (Any): The object to parameterize.
 
-
-def _update_config_str(element: str, **update_keys):
-    return element.format_map(SaveFormatting(**update_keys))
+        Returns:
+          The updated parameters.
+        """
+        return update_parameters(obj, **self.parameters)

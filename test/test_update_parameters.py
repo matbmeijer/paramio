@@ -1,23 +1,9 @@
 import numpy as np
 
-from paramio.paramio import Paramio
+from paramio.paramio import update_parameters
 
 
-def test_init():
-    project_parameters = Paramio(env="pro", folder="inference")
-    assert project_parameters.parameters == {"env": "pro", "folder": "inference"}
-
-
-def test_init_order():
-    project_parameters = Paramio(folder="inference", env="pro")
-    assert project_parameters.parameters == {"folder": "inference", "env": "pro"}
-
-
-def test_parameterize():
-    project_parameters = Paramio(
-        env="dev", bucket="enterprise_dwh_global", group="extract", task="read_origins"
-    )
-
+def test_update_parameters_1():
     config_file = {
         "env": "{env}",
         "s3_bucket": "{bucket}",
@@ -29,9 +15,15 @@ def test_parameterize():
         "group": {"task": "{bucket}/{group}/{task}/{experiment}"},
     }
 
-    updated_config_file = project_parameters.parameterize(config_file)
+    res = update_parameters(
+        config_file,
+        env="dev",
+        bucket="enterprise_dwh_global",
+        group="extract",
+        task="read_origins",
+    )
 
-    test_config_file = {
+    test_res = {
         "env": "dev",
         "s3_bucket": "enterprise_dwh_global",
         "iterations": 1,
@@ -42,4 +34,4 @@ def test_parameterize():
         "group": {"task": "enterprise_dwh_global/extract/read_origins/{experiment}"},
     }
 
-    assert updated_config_file == test_config_file
+    assert res == test_res
