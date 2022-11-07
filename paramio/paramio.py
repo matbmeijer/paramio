@@ -1,5 +1,6 @@
-from typing import Any
+from typing import Any, List
 
+from paramio.get_parameters import get_parameters
 from paramio.update_parameters import update_parameters
 
 
@@ -21,3 +22,14 @@ class Paramio:
           The updated parameters.
         """
         return update_parameters(obj, **self.parameters)
+
+    def parameters(self) -> dict:
+        return self.parameters
+
+    def missing_parameters(self, obj: Any) -> List[str]:
+        av_parameters = get_parameters(obj)
+        return [
+            parameter
+            for parameter in av_parameters
+            if parameter not in self.parameters.keys()
+        ]
