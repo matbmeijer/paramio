@@ -23,23 +23,30 @@ use_condaenv(condaenv="paramio_test", conda = "/home/matbreotten/Downloads/ENTER
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-*Paramio* is a light-weight package with a simple goal for any kind of projects:
+*Paramio* is a light-weight package with a simple objective:
 
 > **Define project parameters only once**
 
+Workflows/jobs depend multiple times upon parameter/config files, which have a dynamic component. For example, paths might vary depending on the environment the job is executed (e.g. `dev` vs `pro`).
+Equally, complex jobs have multiple times a variety of parameter files, dictionaries and simple Python elements, which need to be updated in each execution. *Paramio* focuses on finding an easy solution for this problem.
+
+It allows to:
+1. Centralize the definition of dynamic parameters in a single object
+2. Update dynamic parameters defined in the f-string format `{}` recursively
+3. Support for any kind of common Python object (`dict`, `list`, `tuple` & `str`)
+4. Ignores other objects, which cannot be updated (e.g. numpy array)
+5. Contrary to f-string annotation, it does not raise a `KeyError` if a dynamic parameter is not defined. This is especially useful if some dynamic parameters need to be defined at different moments of the execution (for example if they depend on the run task results).
+
 ## Installation
 
-You can install **Paramio** directly from Github following these `pip` commands:
+You can install **Paramio** directly from Github following this `pip` command:
 
 ``` bash
 pip install git+https://github.com/matbmeijer/paramio.git
 ```
-## Example:
-**Paramio** searches and updates recursively dynamic parameters defined with the `f-string` annotation, e.g. `{env}`. It allows to define dynamic parameters only once, and is able to update `dict`, `list`, `tuple` or simple `string` objects. Yet, if it finds other objects within these kind of formats, it does not raise an error.
+## Examples:
 
-Equally, if parameters are defined, which cannot be found in the **Paramio** parameters set when initialized, it does not raise an error. This is especially useful if different parameters are defined in different moments.
-
-This is a basic example showing how to use **Paramio**, which also depicts how - although `{experiment}` is not defined, it does not fail nor raise an error:
+This is a basic example showing how to use **Paramio**. It also depicts how *Paramio* does not throw a KeyError if a parameter is not defined - in this case the parameter `{experiment}` is not defined, yet it does not fail:
 ```{python example}
 from paramio import Paramio
 
@@ -58,8 +65,23 @@ config_file = {
         "group": {"task": "{bucket}/{group}/{task}/{experiment}"},
     }
 
+# Parameterize parameter dictionary
+updated_config_file = project_parameters.parameterize(config_file)
+
 # notice how experiment, which is not defined in Paramio, stays the same
-print(project_parameters.parameterize(config_file))
+updated_config_file
+```
+
+Yet now if we add the `experiment` parameter it will be updated:
+```{python example2}
+#Add parameter for experiment
+project_parameters.add(experiment="1234")
+
+# Parameterize parameter dictionary
+updated_config_file_v2 = project_parameters.parameterize(config_file)
+
+# notice how now experiment is defined
+updated_config_file_v2
 ```
 
 ## Code of Conduct
