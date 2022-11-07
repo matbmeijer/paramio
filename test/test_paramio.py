@@ -5,12 +5,12 @@ from paramio.paramio import Paramio
 
 def test_init():
     project_parameters = Paramio(env="pro", folder="inference")
-    assert project_parameters.parameters == {"env": "pro", "folder": "inference"}
+    assert project_parameters.parameters() == {"env": "pro", "folder": "inference"}
 
 
 def test_init_order():
     project_parameters = Paramio(folder="inference", env="pro")
-    assert project_parameters.parameters == {"folder": "inference", "env": "pro"}
+    assert project_parameters.parameters() == {"folder": "inference", "env": "pro"}
 
 
 def test_parameterize():
@@ -71,6 +71,42 @@ def test_missing_parameters():
     ]
 
 
-def test_parameters():
+def test_parameters_1():
     project_parameters = Paramio(folder="inference", env="pro")
-    assert project_parameters.parameters == {"folder": "inference", "env": "pro"}
+    assert project_parameters.parameters() == {"folder": "inference", "env": "pro"}
+
+
+def test_parameters_2():
+    project_parameters = Paramio(folder="inference", env="pro")
+    assert project_parameters.parameters() == project_parameters.parameters()
+
+
+def test_add():
+    project_parameters = Paramio(folder="inference", env="pro")
+    project_parameters.add(env="dev", weather="rainy")
+    assert project_parameters.parameters() == {
+        "folder": "inference",
+        "env": "dev",
+        "weather": "rainy",
+    }
+
+
+def test_delete():
+    project_parameters = Paramio(folder="inference", env="pro")
+    project_parameters2 = Paramio(folder="inference", env="pro")
+    project_parameters3 = Paramio(folder="inference", env="pro")
+
+    project_parameters.delete("env")
+    project_parameters2.delete(["env"])
+    project_parameters3.delete({"env": "dev"})
+
+    assert (
+        project_parameters.parameters()
+        == project_parameters2.parameters()
+        == project_parameters3.parameters()
+    )
+
+
+def test_empty_paramio():
+    empty_parameters = Paramio()
+    assert empty_parameters.parameters() == {}
