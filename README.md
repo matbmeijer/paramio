@@ -62,17 +62,19 @@ project_parameters = Paramio(
   task="read_origins"
 )
 
-# e.g. dictionary
+# e.g. dictionary with parameters
 config_file = {
         "env": "{env}",
         "s3_bucket": "{bucket}",
-        "group": {"task": "{bucket}/{group}/{task}/{experiment}"},
+        "group": {"task":
+          "{bucket}/{group}/{task}/{experiment}"
+          },
     }
 
-# Parameterize parameter dictionary
+# Parameterize the dictionary
 updated_config_file = project_parameters.parameterize(config_file)
 
-# notice how experiment, which is not defined in Paramio, stays the same
+# Notice how experiment, which is not defined in Paramio, stays the same
 updated_config_file
 #> {'env': 'dev', 's3_bucket': 'enterprise_dwh_global', 'group': {'task': 'enterprise_dwh_global/extract/read_origins/{experiment}'}}
 ```
