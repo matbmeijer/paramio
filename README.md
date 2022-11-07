@@ -22,19 +22,22 @@ jobs have multiple times a variety of parameter files, dictionaries and
 simple Python elements, which need to be updated in each execution.
 *Paramio* focuses on finding an easy solution for this problem.
 
-It allows to: 1. Centralize the definition of dynamic parameters in a
-single object 2. Update dynamic parameters defined in the f-string
-format `{}` recursively 3. Support for any kind of common Python object
-(`dict`, `list`, `tuple` & `str`) 4. Ignores other objects, which cannot
-be updated (e.g. numpy array) 5. Contrary to f-string annotation, it
-does not raise a `KeyError` if a dynamic parameter is not defined. This
-is especially useful if some dynamic parameters need to be defined at
-different moments of the execution (for example if they depend on the
-run task results).
+It allows to:
+
+1.  Centralize the definition of dynamic parameters in a single object
+2.  Update dynamic parameters defined in the f-string format
+    `"{parameter}"` recursively
+3.  Support for any kind of common Python object (`dict`, `list`,
+    `tuple` & `str`)
+4.  Ignores other objects, which cannot be updated (e.g. numpy array)
+5.  Contrary to `f-string` annotation, it does not raise a `KeyError` if
+    a dynamic parameter is not defined. This is especially useful if
+    some dynamic parameters need to be defined at different moments of
+    the execution (for example if they depend on the run task results).
 
 ## Installation
 
-You can install **Paramio** directly from Github following this `pip`
+You can install *Paramio* directly from Github following this `pip`
 command:
 
 ``` bash
@@ -43,10 +46,10 @@ pip install git+https://github.com/matbmeijer/paramio.git
 
 ## Examples:
 
-This is a basic example showing how to use **Paramio**. It also depicts
-how *Paramio* does not throw a KeyError if a parameter is not defined -
-in this case the parameter `{experiment}` is not defined, yet it does
-not fail:
+This is a basic example showing how to use *Paramio*. It also depicts
+how *Paramio* does not throw a `KeyError` if a parameter is not
+defined - in this case the parameter `{experiment}` is not defined, yet
+it does not fail:
 
 ``` python
 from paramio import Paramio
@@ -92,10 +95,10 @@ updated_config_file_v2
 
 Please note that the ‘Paramio’ project is released with a [Contributor
 Code of
-Conduct](https://github.com/matbmeijer/paramio/blob/master/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/matbmeijer/paramio/blob/main/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
 
 ## License
 
 [MIT © Matthias
-Brenninkmeijer](https://github.com/matbmeijer/paramio/blob/master/LICENSE)
+Brenninkmeijer](https://github.com/matbmeijer/paramio/blob/main/LICENSE)
