@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, Dict, List, Union
 
 from paramio.get_parameters import get_parameters
 from paramio.update_parameters import update_parameters
@@ -9,7 +9,7 @@ class Paramio:
         """
         Assigns the parameters to the class parameters attribute
         """
-        self.parameters = parameters
+        self._parameters = parameters
 
     def parameterize(self, obj: Any) -> Any:
         """
@@ -21,15 +21,30 @@ class Paramio:
         Returns:
           The updated parameters.
         """
-        return update_parameters(obj, **self.parameters)
+        return update_parameters(obj, **self._parameters)
 
-    def parameters(self) -> dict:
-        return self.parameters
+    def add(self, **parameters) -> None:
+        """
+        This method takes in parameters and adds or updates the self._parameters dictionary depending if they exist or not
+        """
+        self._parameters.update(parameters)
+
+    def delete(self, parameters: Union[List[str], str, Dict[str, str]]) -> None:
+        if isinstance(parameters, str):
+            parameters = [parameters]
+        elif isinstance(parameters, dict):
+            parameters = list(parameters.keys())
+
+        for param in parameters:
+            self._parameters.pop(param, None)
+
+    def parameters(self):
+        return self._parameters
 
     def missing_parameters(self, obj: Any) -> List[str]:
         av_parameters = get_parameters(obj)
         return [
             parameter
             for parameter in av_parameters
-            if parameter not in self.parameters.keys()
+            if parameter not in self._parameters.keys()
         ]
