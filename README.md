@@ -55,11 +55,12 @@ pip install git+https://github.com/matbmeijer/paramio.git
 
 #### Example parameter file
 
-Let’s see a basic example showing how to use **Paramio**. Imagine we
-have a `parameters.yaml` file with all the projects parameters as the
-following. We could have it in any format (yaml, toml, json, etc.), the
-important aspect here is that the **dynamic variables** are defined with
-`f-string` formatting syntax:
+Let’s see a basic example showing how to use **Paramio**. Imagine having
+a `parameters.yaml` file with all the project parameters as the
+following. The file could be in any common config file format
+(e.g. yaml, toml, json, etc.), the objective is to exemplify a realistic
+use case. An important aspect here is that the **dynamic variables** are
+defined with `f-string` formatting syntax:
 
 ``` yaml
 project_parameters:
