@@ -14,7 +14,7 @@ with open(os.path.join(root, "paramio", "__init__.py"), "r") as init_file:
 
 attrs = dict(re.findall(r"__([a-z]+)__ *= *['\"](.+)['\"]", init_content))
 
-with open("README.md", "r") as readme_file:
+with open("README.md", "r", encoding="utf8") as readme_file:
     long_description = readme_file.read()
 
 setup(
