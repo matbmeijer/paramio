@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from paramio.get_parameters import get_parameters
 
 

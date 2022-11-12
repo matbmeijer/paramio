@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from typing import Any, Dict, List, Union
 
 from paramio.get_parameters import get_parameters

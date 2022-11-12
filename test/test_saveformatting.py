@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from paramio.saveformatting import SaveFormatting
 
 
